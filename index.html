@@ -142,15 +142,16 @@ src="https://www.facebook.com/tr?id=2341142859631180&ev=PageView&noscript=1"
     ];
     let current=0;
 
-let onlineUsers = Math.floor(Math.random()*8)+22;
-function updateOnlineUsers(){
- if(Math.random()<0.7){onlineUsers++;}else{onlineUsers--;}
- if(onlineUsers<18) onlineUsers=18;
- if(onlineUsers>34) onlineUsers=34;
- const el=document.getElementById('onlineUsers');
- if(el) el.textContent=onlineUsers;
-}
+let onlineUsers = Math.floor(Math.random()*8)+4;
 
+function updateOnlineUsers(){
+    if(Math.random()>0.7){onlineUsers++;}else{onlineUsers--;}
+    if(onlineUsers<4) onlineUsers=4;
+    if(onlineUsers>15) onlineUsers=15;
+
+    const el=document.getElementById('onlineUsers');
+    if(el) el.textContent=onlineUsers;
+}
     function updateTestimonio(){
       const tDiv=document.getElementById('testimonial-text');
       const pBar=document.getElementById('progress-bar');
