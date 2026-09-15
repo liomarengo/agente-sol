@@ -121,14 +121,32 @@ src="https://www.facebook.com/tr?id=1378092247412847&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 
-  <script>
-    const whatsappNumber = "3516569032";
+<script>
+
+    const whatsappNumbers = [
+      "3516569032",
+      "3516569032"
+    ];
+
+    // Elegir uno de los dos WhatsApp con probabilidad 50/50.
+    // Se mantiene el mismo número durante toda la sesión del visitante.
+    let assignedWhatsApp = sessionStorage.getItem('assigned_whatsapp');
+
+    if (!assignedWhatsApp) {
+      assignedWhatsApp = Math.random() < 0.5
+        ? whatsappNumbers[0]
+        : whatsappNumbers[1];
+
+      sessionStorage.setItem('assigned_whatsapp', assignedWhatsApp);
+    }
+
     function goToWhatsApp(){
       fbq('track','Contact', {
         value: 1,
         currency: 'USD'
       });
-      window.location.href=`https://wa.me/${whatsappNumber}?text=Hola!!%20Quiero%20un%20usuario,%20mi%20nombre%20es:`;
+
+      window.location.href=`https://wa.me/${assignedWhatsApp}?text=Hola!!!%20Quiero%20un%20usuario,%20mi%20nombre%20es:`;
     }
 
     const testimonios=[
@@ -152,6 +170,7 @@ function updateOnlineUsers(){
     const el=document.getElementById('onlineUsers');
     if(el) el.textContent=onlineUsers;
 }
+
     function updateTestimonio(){
       const tDiv=document.getElementById('testimonial-text');
       const pBar=document.getElementById('progress-bar');
@@ -164,14 +183,17 @@ function updateOnlineUsers(){
       },10);
       current=(current+1)%testimonios.length;
     }
+
     window.onload=()=>{
       updateTestimonio();
       updateOnlineUsers();
       setInterval(updateTestimonio,5000);
       setInterval(updateOnlineUsers,4000);
     };
-  </script>
+
+</script>
 </head>
+
 <body>
  
   <div class="container">
@@ -205,8 +227,6 @@ function updateOnlineUsers(){
       <div class="progress-bar" id="progress-bar"></div>
     </div>
   </div>
+
 </body>
 </html>
-
-
-
